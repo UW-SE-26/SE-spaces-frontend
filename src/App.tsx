@@ -9,9 +9,12 @@ import Booked from "./pages/Booked"
 import Explore from "./pages/Explore"
 import Landing from "./pages/Landing"
 
+import Navbar from "./components/Navbar"
+
 function App() {
   return (
     <div className="App">
+      <Navbar />
       <Router>
         <Route exact path="/" component={Landing} />
         <Route exact path="/explore" component={Explore} />
