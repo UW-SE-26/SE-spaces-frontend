@@ -8,7 +8,7 @@ function Navbar() {
   return (
     <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between", height:"72px", alignItems:"center"}}>
       <div>
-        <img src={logo192} style={{width:"50px"}}/>
+        <img src={logo192} style={{width:"50px"}} alt="UW SE Logo"/>
       </div>
       <div>
         <Menu mode="horizontal">
