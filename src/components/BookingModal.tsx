@@ -91,16 +91,16 @@ function BookingModal() {
               <div className={bookingStyles.genericPadding}>
                 <h4>Set Booking Time <FormOutlined></FormOutlined></h4>
                 <div className={bookingStyles.genericPadding}>
-                  <DatePicker style={{boxShadow:"0px 0px 5px gray"}} size="large" onChange={logDate}/>
+                  <DatePicker style={{boxShadow:"0px 2px 18px rgba(158, 158, 158, 0.5)"}} size="large" onChange={logDate}/>
                 </div>
                 <div className={bookingStyles.genericPadding}>
-                  <TimePicker style={{boxShadow:"0px 0px 5px gray"}} size="large" use12Hours format="h:mm a" minuteStep={30} onChange={logTime}/>
+                  <TimePicker style={{boxShadow:"0px 2px 18px rgba(158, 158, 158, 0.5)"}} size="large" use12Hours format="h:mm a" minuteStep={30} onChange={logTime}/>
                 </div>
               </div>
               <div className={bookingStyles.genericPadding}>
                 <h4>Guests <UserAddOutlined></UserAddOutlined></h4>
                 <div className={bookingStyles.genericPadding}>
-                  <Select mode="tags" style={{width: "100%", boxShadow:"0px 0px 5px gray"}} onChange={logGuest} tokenSeparators={[',']} placeholder="Waterloo Email">
+                  <Select mode="tags" style={{width: "100%", boxShadow:"0px 2px 18px rgba(158, 158, 158, 0.5)"}} onChange={logGuest} tokenSeparators={[',']} placeholder="Waterloo Email">
                     {guest_keys}
                   </Select>
                 </div>
