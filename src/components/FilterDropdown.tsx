@@ -1,5 +1,4 @@
 import React from "react";
-import "antd/dist/antd.css";
 import { Menu, Dropdown, Button } from "antd";
 import ArrowDropDownOutlined from '@material-ui/icons/ArrowDropDownOutlined';
 
