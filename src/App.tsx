@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from "react-router-dom";
 
 import Booked from "./pages/Booked"
@@ -12,12 +13,14 @@ import Navbar from "./components/Navbar"
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
+    <div className="App">    
       <Router>
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/explore" component={Explore} />
-        <Route exact path="/booked" component={Booked} />
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/explore" component={Explore} />
+          <Route exact path="/booked" component={Booked} />
+        </Switch>
       </Router>
     </div>
   );
