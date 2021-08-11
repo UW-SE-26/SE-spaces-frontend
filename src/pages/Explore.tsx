@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import FilterDropdownGroup from "../components/FilterDropdownGroup";
+import BookingModal from "../components/BookingModal";
 
 function Explore() {
   const [room, setRoom] = useState("");
@@ -33,16 +34,19 @@ function Explore() {
 
   return (
     <div>
-      <FilterDropdownGroup
-        room={room}
-        date={date}
-        time={time}
-        capacity={capacity}
-        onRoomChange={handleRoomChange}
-        onDateChange={handleDateChange}
-        onTimeChange={handleTimeChange}
-        onCapacityChange={handleCapacityChange}
-      />
+      <div>
+        <FilterDropdownGroup
+          room={room}
+          date={date}
+          time={time}
+          capacity={capacity}
+          onRoomChange={handleRoomChange}
+          onDateChange={handleDateChange}
+          onTimeChange={handleTimeChange}
+          onCapacityChange={handleCapacityChange}
+        />
+      </div>
+      <BookingModal></BookingModal>
     </div>
   );
 }
