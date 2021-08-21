@@ -3,18 +3,18 @@ import FilterDropdown from "./FilterDropdown";
 import HomeOutlined from "@material-ui/icons/HomeOutlined";
 import PersonOutlined from "@material-ui/icons/PersonOutlined";
 import { DatePicker, TimePicker, Space, Button } from "antd";
-import moment from "moment";
+import moment, { MomentInput } from "moment";
 
 function FilterDropdownGroup(props: any) {
   function onRoomChange(room: string) {
     props.onRoomChange(room);
   }
 
-  function onDateChange(date: any, dateString: string) {
+  function onDateChange(date: MomentInput, dateString: string) {
     props.onDateChange(date);
   }
 
-  function onTimeChange(time: any, timeString: string) {
+  function onTimeChange(time: MomentInput, timeString: string) {
     props.onTimeChange(time);
   }
 
