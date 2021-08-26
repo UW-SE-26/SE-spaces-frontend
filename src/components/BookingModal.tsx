@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal, Button, TimePicker, DatePicker, Select } from "antd"
 import MapImage from "../assets/Temp_Map.png"
 import bookingStyles from "../styles/booking.module.css"
+
 import {MomentInput } from "moment";
 import { FormOutlined, UserAddOutlined } from "@ant-design/icons";
 import HomeOutlined from "@material-ui/icons/HomeOutlined";
@@ -127,16 +128,16 @@ function BookingModal() {
               <div className={bookingStyles.genericPadding}>
                 <h4>Set Booking Time <FormOutlined></FormOutlined></h4>
                 <div className={bookingStyles.genericPadding}>
-                  <DatePicker style={{boxShadow:"0px 2px 18px rgba(158, 158, 158, 0.5)"}} size="large" onChange={logDate}/>
+                  <DatePicker className={bookingStyles.dataEntry} size="large" onChange={logDate}/>
                 </div>
                 <div className={bookingStyles.genericPadding}>
-                  <TimePicker.RangePicker style={{width: "100%", boxShadow:"0px 2px 18px rgba(158, 158, 158, 0.5)"}} size="large" use12Hours format="h:mm a" minuteStep={30} onChange={logTime}/>
+                  <TimePicker.RangePicker className={bookingStyles.dataEntry} size="large" use12Hours format="h:mm a" minuteStep={30} onChange={logTime}/>
                 </div>
               </div>
               <div className={bookingStyles.genericPadding}>
                 <h4>Guests <UserAddOutlined></UserAddOutlined></h4>
                 <div className={bookingStyles.genericPadding}>
-                  <Select mode="tags" style={{width: "100%", boxShadow:"0px 2px 18px rgba(158, 158, 158, 0.5)"}} onChange={logGuest} tokenSeparators={[',']} placeholder="Waterloo Email">
+                  <Select mode="tags" className={bookingStyles.dataEntry} size="large" onChange={logGuest} tokenSeparators={[',']} placeholder="Waterloo Email">
                     {guest_keys}
                   </Select>
                 </div>
