@@ -1,0 +1,58 @@
+
+.wrapper{
+    height: 100%;
+    width: 100%;
+}
+.flexContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem;
+    align-items: center;
+    align-content: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+.flexItemLeft{
+    flex-direction: column;
+    flex:50%;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+
+.flexItemRight{
+    flex:50%;
+    flex-wrap: wrap;
+    height: 100%;
+    flex-direction: column;
+}
+
+.content{
+    margin-top: 25%;
+    margin-left: 10%;
+    font-weight: bold;
+}
+
+.subText{
+    font-size: larger;
+    text-align: start;
+    color: #D5B3FF;
+}
+
+.boldText{
+    font-size: 5vh;
+    text-align: start;
+    overflow: auto;
+}
+
+.viola{
+    color: white;
+    margin-top: 3.5vh;
+    margin-right: 82%;
+    background-color: #D5B3FF;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+
+}

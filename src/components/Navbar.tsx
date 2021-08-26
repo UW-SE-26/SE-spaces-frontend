@@ -30,8 +30,8 @@ function Navbar() {
             <Link to="/booked"> View Bookings </Link>
           </Menu.Item>
 
-          <Menu.Item key="logOut" style={{paddingBottom: "10px"}}>
-            Log Out
+          <Menu.Item key="logIn" style={{paddingBottom: "10px"}}>
+            <Link to="/Login"> Login </Link>
           </Menu.Item>
           
         </Menu>
