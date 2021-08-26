@@ -1,13 +1,13 @@
 import { Form, Input, Button } from 'antd';
 import { LockOutlined, MailOutlined } from '@material-ui/icons';
 import  loginStyles from "../styles/login.module.css"
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Card, Container } from '@material-ui/core';
 
 const login = () => {
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
     };
-
     return (
         <section className={loginStyles.wrapper}>
             <div className={loginStyles.content}>
@@ -32,19 +32,20 @@ const login = () => {
                         <Form.Item
                             name="email"
                             className={loginStyles.loginFields}
-                            rules={[{ type: 'email', required: true, message: 'Please input a valid email address!' }]}
+                            rules={[{ required: true, message: 'Please enter your username!' }]}
                         >
-                            <Input prefix={<MailOutlined className={loginStyles.iconColor} />} placeholder="E-mail" />
+                            <Input prefix={<MailOutlined className={loginStyles.iconColor} />} suffix="@uwaterloo.ca" placeholder="Username"/>
                         </Form.Item>
                         <Form.Item
                             name="password"
                             className={loginStyles.loginFields}
                             rules={[{ required: true, message: 'Please input your Password!' }]}
                         >
-                            <Input
+                            <Input.Password
                                 prefix={<LockOutlined className={loginStyles.iconColor} />}
                                 type="password"
                                 placeholder="Password"
+                                iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                             />
                         </Form.Item>
                         </div>
@@ -55,7 +56,7 @@ const login = () => {
                         </Form.Item>
                         <Form.Item className={loginStyles.loginFields}>
                             <Button type="primary" className={loginStyles.loginButton} htmlType="submit" >
-                                Log in
+                                Log In
                             </Button>
                         </Form.Item>
                     </Form>

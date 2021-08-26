@@ -23,7 +23,7 @@
 .bigText{
   font-weight: bold;
   margin-top: 6px;
-  font-size: 4vh;
+  font-size: 3rem;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -65,6 +65,7 @@
   padding-left: 2vw;
   padding-right: 2vw;
   height: 3vh;
+  margin-bottom: 4.8vh;
 }
 
 .loginForgot{
@@ -75,7 +76,7 @@
 }
 
 .loginButton{
-  margin-top: 4vh;
+  margin-top: 1.3vh;
   width: 21vw;
   background-color: #D5B3FF;
   font-weight: 900;
