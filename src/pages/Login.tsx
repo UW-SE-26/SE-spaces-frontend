@@ -2,13 +2,12 @@ import { Form, Input, Button } from 'antd';
 import { LockOutlined, MailOutlined } from '@material-ui/icons';
 import  loginStyles from "../styles/login.module.css"
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-
+import { Card, Container } from '@material-ui/core';
 
 const login = () => {
     const onFinish = (values: any) => {
-        values.email=values.email+"@uwaterloo.ca";
-        console.log(values);
-    }
+        console.log('Received values of form: ', values);
+    };
     return (
         <section className={loginStyles.wrapper}>
             <div className={loginStyles.content}>
@@ -27,7 +26,7 @@ const login = () => {
                         name="login"
                         className="login-form"
                         initialValues={{ remember: true }}
-                        onFinish={onFinish}                        
+                        onFinish={onFinish}
                     >
                         <div className={loginStyles.sectionField}>
                         <Form.Item
