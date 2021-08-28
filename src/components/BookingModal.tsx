@@ -3,7 +3,7 @@ import { Modal, Button, TimePicker, DatePicker, Select } from "antd"
 import MapImage from "../assets/Temp_Map.png"
 import bookingStyles from "../styles/booking.module.css"
 
-import {MomentInput } from "moment";
+import { MomentInput } from "moment";
 import { FormOutlined, UserAddOutlined } from "@ant-design/icons";
 import HomeOutlined from "@material-ui/icons/HomeOutlined";
 import PersonOutlined from "@material-ui/icons/PersonOutlined";
@@ -19,7 +19,7 @@ interface BookedEvent {
 //temporary, will be replaced by api call to backend
 let recent_guests = ["tswift@uwaterloo.ca","lvuitton@uwaterloo.ca","emusk@uwaterloo.ca", "jbezos@uwaterloo.ca"];
 
-function BookingModal() {
+function BookingModal(props: any) {
 
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -95,9 +95,10 @@ function BookingModal() {
 
   return (
     <div>
-      <Button type="primary" onClick={showModal}>
-        Book this space
-      </Button>
+      <div className={bookingStyles.mainCard} onClick={showModal}>
+        <img src={MapImage} className={bookingStyles.cardImage}/>
+        {props.name}
+      </div>
       <Modal
         title={
           <div className={bookingStyles.headerLine}>

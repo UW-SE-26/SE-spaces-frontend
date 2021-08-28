@@ -1,12 +1,30 @@
 import { useState, useEffect } from "react";
 import FilterDropdownGroup from "../components/FilterDropdownGroup";
 import BookingModal from "../components/BookingModal";
+import axios from "axios";
+import exploreStyles from "../styles/explore.module.css";
 
 function Explore() {
   const [room, setRoom] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [capacity, setCapacity] = useState("");
+
+  const [loadingData, setLoadingData] = useState(true);
+  const all_bookings_initial = {
+    rooms: [{
+      name: "Loading Rooms",
+    }],
+  };
+  const [all_bookings, setBookings] = useState(all_bookings_initial);
+
+  useEffect(() => {
+    axios.get('http://134.122.43.103:3000/api/rooms').then(res => {
+      setBookings(res.data);
+      setLoadingData(false);
+      console.log(all_bookings);
+    });
+  }, []);
 
   useEffect(() => {
     if (room || date || time || capacity) {
@@ -33,21 +51,34 @@ function Explore() {
   }
 
   return (
-    <div>
+    <>
+      {loadingData ? (
+        <div>Loading...</div>
+      ) : 
       <div>
-        <FilterDropdownGroup
-          room={room}
-          date={date}
-          time={time}
-          capacity={capacity}
-          onRoomChange={handleRoomChange}
-          onDateChange={handleDateChange}
-          onTimeChange={handleTimeChange}
-          onCapacityChange={handleCapacityChange}
-        />
+        <div>
+          <FilterDropdownGroup
+            room={room}
+            date={date}
+            time={time}
+            capacity={capacity}
+            onRoomChange={handleRoomChange}
+            onDateChange={handleDateChange}
+            onTimeChange={handleTimeChange}
+            onCapacityChange={handleCapacityChange}
+          />
+        </div>
+        <div className={exploreStyles.cardContainer}>
+          {console.log(all_bookings)}
+          {all_bookings.rooms.map((room, index) =>
+            <div>
+              <BookingModal name={room.name}/>
+            </div>
+          )}
+        </div>
       </div>
-      <BookingModal></BookingModal>
-    </div>
+      }
+    </>
   );
 }
 
