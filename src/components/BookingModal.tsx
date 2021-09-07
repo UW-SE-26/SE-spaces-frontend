@@ -132,7 +132,7 @@ function BookingModal(props: any) {
                   <DatePicker className={bookingStyles.dataEntry} size="large" onChange={logDate}/>
                 </div>
                 <div className={bookingStyles.genericPadding}>
-                  <TimePicker.RangePicker className={bookingStyles.dataEntry} size="large" use12Hours format="h:mm a" minuteStep={30} onChange={logTime}/>
+                  <TimePicker.RangePicker className={bookingStyles.dataEntry} size="large" use12Hours format="h a" minuteStep={30} onChange={logTime}/>
                 </div>
               </div>
               <div className={bookingStyles.genericPadding}>
