@@ -9,6 +9,24 @@ import PersonIcon from '@material-ui/icons/Person';
 const {Title} = Typography
 const iconStyle = {width: "18px", height: "18px", marginRight: "10px", color: "#6C6C6C"}
 
+let bookedEvents = {
+  Bookings: 
+  [
+      {
+        booker: true,
+        timeBlock: { users: ["steve", "joe"], booker: "jeff", sectionId: "ObjectId", startsAt: new Date("2021-9-15T13:00:00.000Z") }
+      },
+      {
+        booker: false,
+        timeBlock: { users: ["steve2", "joe2"], booker: "jeff2", sectionId: "ObjectId2", startsAt: new Date("2021-9-15T14:00:00.000Z") }
+      },
+      {
+        booker: true,
+        timeBlock: { users: ["steve3", "joe3"], booker: "jeff3", sectionId: "ObjectId3", startsAt: new Date("2021-9-15T15:00:00.000Z") }
+      }
+  ]
+}
+
 function Booked() {
   return (
     <div style={{height: "calc(100vh - 56px)", width: "100vw", padding: "70px"}}>
