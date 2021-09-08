@@ -60,7 +60,9 @@ function FilterDropdownGroup(props: any) {
           <div style={{ marginRight: "10px" }}>
             <TimePicker
               onChange={onTimeChange}
-              defaultValue={moment("00:00:00", "HH:mm:ss")}
+              use12Hours
+              format="h a"
+              minuteStep={30}
               value={props.time}
             />
           </div>

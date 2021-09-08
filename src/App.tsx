@@ -9,6 +9,7 @@ import Booked from "./pages/Booked"
 import Explore from "./pages/Explore"
 import Landing from "./pages/Landing"
 import Login from "./pages/Login"
+import CreateAccount from "./pages/CreateAccount"
 
 import Navbar from "./components/Navbar"
 
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/explore" component={Explore} />
           <Route exact path="/booked" component={Booked} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/create" component={CreateAccount} />
         </Switch>
       </Router>
     </div>
