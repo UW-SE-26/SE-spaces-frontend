@@ -4,6 +4,7 @@ import MapImage from "../assets/Temp_Map.png"
 import bookingStyles from "../styles/booking.module.css"
 
 import { MomentInput } from "moment";
+import moment from 'moment';
 import { FormOutlined, UserAddOutlined } from "@ant-design/icons";
 import HomeOutlined from "@material-ui/icons/HomeOutlined";
 import PersonOutlined from "@material-ui/icons/PersonOutlined";
@@ -82,10 +83,10 @@ function BookingModal(props: any) {
     console.log(selected_date_in);
   }
 
-  function logTime(value_moment_in: [MomentInput, MomentInput] | null, selected_time_in: [string, string]) {
-    setStart(selected_time_in[0]);
-    setEnd(selected_time_in[1]);
-    console.log(selected_time_in[0], "->", selected_time_in[1]);
+  function logTime(value_moment_in: MomentInput | null, selected_time_in: string) {
+    let hour = moment(value_moment_in).format("HH")
+    setStart(hour);
+    console.log("Time Selected: ", hour);
   }
 
   function logGuest(selected_guests_in: string[]) {
@@ -132,7 +133,7 @@ function BookingModal(props: any) {
                   <DatePicker className={bookingStyles.dataEntry} size="large" onChange={logDate}/>
                 </div>
                 <div className={bookingStyles.genericPadding}>
-                  <TimePicker.RangePicker className={bookingStyles.dataEntry} size="large" use12Hours format="h a" minuteStep={30} onChange={logTime}/>
+                  <TimePicker className={bookingStyles.dataEntry} size="large" use12Hours format="h a" minuteStep={30} onChange={logTime}/>
                 </div>
               </div>
               <div className={bookingStyles.genericPadding}>
