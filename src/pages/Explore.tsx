@@ -11,6 +11,7 @@ function Explore() {
   const [capacity, setCapacity] = useState("");
 
   const [loadingData, setLoadingData] = useState(true);
+  
   const all_bookings_initial = {
     rooms: [{
       name: "Loading Rooms",
@@ -22,11 +23,31 @@ function Explore() {
   const [all_bookings, setBookings] = useState(all_bookings_initial);
   const [shown_bookings, updateBookings] = useState(all_bookings_initial);
 
+  const all_sections_initial = {
+    sections: [{
+      id: -1,
+      name: "Loading Sections",
+    }],
+  };
+
+  const [section_ids, setSectionIDs] = useState([""])
+  const [all_sections, setSections] = useState(all_sections_initial);
+  const [shown_sections, updateSections] = useState(all_sections_initial);
+
   useEffect(() => {
     axios.get('http://134.122.43.103:3000/api/rooms').then(res => {
+      console.log("/api/rooms result:", res)
+      let sectionID_list: string[] = []
+      for(let i=0; i<res["data"]["rooms"].length; i++){
+        let partial_section_list: string[] = res["data"]["rooms"][i]["sections"]
+        for(let j=0; j<partial_section_list.length; j++){
+          sectionID_list.push(partial_section_list[j])
+        }
+      }
+      console.log("Sections List:", sectionID_list)
+      setSectionIDs(sectionID_list)
       setBookings(res.data);
       updateBookings(res.data);
-      console.log(all_bookings)
     });
 
     setLoadingData(false);
@@ -87,13 +108,12 @@ function Explore() {
           />
         </div>
         <div className={exploreStyles.cardContainer}>
-          {console.log(shown_bookings)}
-          {shown_bookings.rooms.map((room, index) =>
+
+          {section_ids.map((section, index) =>
             <div>
-              <BookingModal 
-                name={room.name} 
-                schedule={room.schedule} 
-                sections={room.sections}
+              <BookingModal
+                key={section}
+                name={section}
               />
             </div>
           )}
