@@ -27,7 +27,6 @@ const createAccount = () => {
                 }
             });
         }
-
     };
     return (
         <section className={loginStyles.wrapper}>

@@ -4,6 +4,9 @@ import MapImage from "../assets/Temp_Map.png"
 import bookingStyles from "../styles/booking.module.css"
 
 import { MomentInput } from "moment";
+
+import moment from 'moment';
+
 import { FormOutlined, UserAddOutlined } from "@ant-design/icons";
 import HomeOutlined from "@material-ui/icons/HomeOutlined";
 import PersonOutlined from "@material-ui/icons/PersonOutlined";
@@ -12,7 +15,6 @@ import BuisnessOutlined from "@material-ui/icons/BusinessOutlined"
 interface BookedEvent {
   date: string;
   start: string;
-  end: string;
   guests: string[];
 }
 
@@ -26,7 +28,7 @@ function BookingModal(props: any) {
 
   const [selected_date, setDate] = useState("");
   const [selected_start, setStart] = useState("");
-  const [selected_end, setEnd] = useState("");
+  const [unavailable_hours, setUnavailableHours] = useState([])
   const [selected_guests, setGuests] = useState([""]);
 
   //keys for dropdown list
@@ -48,7 +50,6 @@ function BookingModal(props: any) {
     let bookedEvent: BookedEvent = {
       date: selected_date,
       start: selected_start,
-      end: selected_end,
       guests: selected_guests,
     };
 
@@ -80,12 +81,14 @@ function BookingModal(props: any) {
   function logDate(value_moment_in: MomentInput, selected_date_in: string) {
     setDate(selected_date_in);
     console.log(selected_date_in);
+    // in the line below, add code to query the API for times booked (unavailable for further booking) for a given section)
+    // setUnavailableHours()
   }
 
-  function logTime(value_moment_in: [MomentInput, MomentInput] | null, selected_time_in: [string, string]) {
-    setStart(selected_time_in[0]);
-    setEnd(selected_time_in[1]);
-    console.log(selected_time_in[0], "->", selected_time_in[1]);
+  function logTime(value_moment_in: MomentInput | null, selected_time_in: string) {
+    let hour = moment(value_moment_in).format("HH")
+    setStart(hour);
+    console.log("Time Selected: ", hour);
   }
 
   function logGuest(selected_guests_in: string[]) {
@@ -125,29 +128,29 @@ function BookingModal(props: any) {
         ]}
       >
         <div className={bookingStyles.mainContainer}>
-            <div className={bookingStyles.bookingInfo}>
+          <div className={bookingStyles.bookingInfo}>
+            <div className={bookingStyles.genericPadding}>
+              <h4>Set Booking Time <FormOutlined></FormOutlined></h4>
               <div className={bookingStyles.genericPadding}>
-                <h4>Set Booking Time <FormOutlined></FormOutlined></h4>
-                <div className={bookingStyles.genericPadding}>
-                  <DatePicker className={bookingStyles.dataEntry} size="large" onChange={logDate}/>
-                </div>
-                <div className={bookingStyles.genericPadding}>
-                  <TimePicker.RangePicker className={bookingStyles.dataEntry} size="large" use12Hours format="h a" minuteStep={30} onChange={logTime}/>
-                </div>
+                <DatePicker className={bookingStyles.dataEntry} size="large" onChange={logDate}/>
               </div>
               <div className={bookingStyles.genericPadding}>
-                <h4>Guests <UserAddOutlined></UserAddOutlined></h4>
-                <div className={bookingStyles.genericPadding}>
-                  <Select mode="tags" className={bookingStyles.dataEntry} size="large" onChange={logGuest} tokenSeparators={[',']} placeholder="Waterloo Email">
-                    {guest_keys}
-                  </Select>
-                </div>
+                <TimePicker className={bookingStyles.dataEntry} size="large" use12Hours format="h a" minuteStep={30} onChange={logTime} disabledHours={() => unavailable_hours}/>
               </div>
             </div>
-            <div>
-              <img src={MapImage} className={bookingStyles.mapSection}/>
+            <div className={bookingStyles.genericPadding}>
+              <h4>Guests <UserAddOutlined></UserAddOutlined></h4>
+              <div className={bookingStyles.genericPadding}>
+                <Select mode="tags" className={bookingStyles.dataEntry} size="large" onChange={logGuest} tokenSeparators={[',']} placeholder="Waterloo Email">
+                  {guest_keys}
+                </Select>
+              </div>
             </div>
           </div>
+          <div className={bookingStyles.bookingInfo}>
+            <img src={MapImage} className={bookingStyles.mapSection}/>
+          </div>
+        </div>
       </Modal>
     </div>
   );
