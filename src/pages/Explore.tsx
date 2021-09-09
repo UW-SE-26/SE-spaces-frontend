@@ -34,7 +34,12 @@ function Explore() {
   const [shown_sections, updateSections] = useState(all_sections_initial);
 
   useEffect(() => {
-    axios.get('http://134.122.43.103:3000/api/rooms').then(res => {
+    console.log("Token: " + window.sessionStorage.token);
+    axios.get('http://134.122.43.103:3000/api/rooms', {
+      headers: {
+        Authorization: `bearer ${window.sessionStorage.token}`
+      }
+    }).then(res => {
       console.log("/api/rooms result:", res)
       let sectionID_list: string[] = []
       for(let i=0; i<res["data"]["rooms"].length; i++){

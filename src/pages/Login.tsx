@@ -6,6 +6,7 @@ import { Card, Container } from '@material-ui/core';
 import axios from 'axios';
 
 const login = () => {
+
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
 
@@ -17,8 +18,21 @@ const login = () => {
 
         axios.post('http://134.122.43.103:3000/api/users/login', login_user).then(res => {
             console.log(res);
+            
             if(res.data.success) {
-                console.log("Token: " + res.data.token);
+                window.sessionStorage.token = res.data.token;
+                console.log("TokenStored: " + window.sessionStorage.token);
+                let interval = setInterval(()=> {
+                    axios.get('http://134.122.43.103:3000/api/users/refreshToken', {
+                        withCredentials: true,
+                    }).then(res => {
+                        window.sessionStorage.token = res.data.token;
+                        console.log(window.sessionStorage.token);
+                    });
+                }, 295000)
+                window.addEventListener('beforeunload', (event) => {
+                    clearInterval(interval);
+                });
             }
         });
     };

@@ -5,6 +5,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import PersonIcon from '@material-ui/icons/Person';
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
 const {Title} = Typography
 const iconStyle = {width: "18px", height: "18px", marginRight: "10px", color: "#6C6C6C"}
@@ -27,7 +29,25 @@ let bookedEvents = {
   ]
 }
 
+
+
 function Booked() {
+
+  /*
+  useEffect(() => {
+    console.log("Token: " + window.sessionStorage.token);
+    axios.get('http://134.122.43.103:3000/api/bookings', {
+      headers: {
+        Authorization: `bearer ${window.sessionStorage.token}`
+      }
+    }).then(res => {
+      console.log("/api/bookings result:", res)
+      
+
+    });
+  }, []);
+  */
+
   return (
     <div style={{height: "calc(100vh - 56px)", width: "100vw", padding: "70px"}}>
       <Title level={2} style={{marginBottom: "40px"}}> Booked Spaces</Title>
