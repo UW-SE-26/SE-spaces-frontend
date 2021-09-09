@@ -3,17 +3,37 @@ import { LockOutlined, MailOutlined, PersonOutlined } from '@material-ui/icons';
 import  loginStyles from "../styles/login.module.css"
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Card, Container } from '@material-ui/core';
+import axios from 'axios';
 
 const createAccount = () => {
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
+        if(values.password != values.confirm) {
+            alert("Passwords do not match!");
+        }
+        else {
+            const new_user = {
+                name: values.first + " " + values.last,
+                email: values.email + "@uwaterloo.ca",
+                password: values.password,
+                program: "SE",
+            }
+            console.log(new_user);
+
+            axios.post('http://134.122.43.103:3000/api/users/register', new_user).then(res => {
+                console.log(res);
+                if(res.data.success) {
+                    window.location.href = '/verify'
+                }
+            });
+        }
     };
     return (
         <section className={loginStyles.wrapper}>
             <div className={loginStyles.content}>
-                <div className={loginStyles.login}>
+                <div className={loginStyles.create}>
                     <div>
-                        <h1 className={loginStyles.bigText}>Create Account</h1>
+                        <h1 className={loginStyles.bigText}>Register</h1>
                     </div>
                     <div>
                     <Form

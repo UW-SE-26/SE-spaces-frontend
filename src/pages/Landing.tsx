@@ -2,6 +2,7 @@
 import { Container } from '@material-ui/core';
 import { Button } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import landingStyles from "../styles/landing.module.css";
 
 function Landing() {
@@ -18,7 +19,9 @@ function Landing() {
               Study Space Booking System for Software Engineering Students.
             </h1>
 
-            <Button className={landingStyles.viola}>Book a Room</Button>
+            <Button className={landingStyles.viola}>
+              <Link to="/explore">Book a Room</Link>
+            </Button>
 
           </section>
         </div>

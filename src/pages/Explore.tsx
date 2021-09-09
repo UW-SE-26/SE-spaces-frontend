@@ -9,9 +9,8 @@ function Explore() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [capacity, setCapacity] = useState("");
-
   const [loadingData, setLoadingData] = useState(true);
-  
+
   const all_bookings_initial = {
     rooms: [{
       name: "Loading Rooms",
@@ -108,7 +107,6 @@ function Explore() {
           />
         </div>
         <div className={exploreStyles.cardContainer}>
-
           {section_ids.map((section, index) =>
             <div>
               <BookingModal

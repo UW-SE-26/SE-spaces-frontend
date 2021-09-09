@@ -4,7 +4,9 @@ import MapImage from "../assets/Temp_Map.png"
 import bookingStyles from "../styles/booking.module.css"
 
 import { MomentInput } from "moment";
+
 import moment from 'moment';
+
 import { FormOutlined, UserAddOutlined } from "@ant-design/icons";
 import HomeOutlined from "@material-ui/icons/HomeOutlined";
 import PersonOutlined from "@material-ui/icons/PersonOutlined";
