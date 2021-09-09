@@ -3,10 +3,24 @@ import { LockOutlined, MailOutlined } from '@material-ui/icons';
 import  loginStyles from "../styles/login.module.css"
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Card, Container } from '@material-ui/core';
+import axios from 'axios';
 
 const login = () => {
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
+
+        const login_user = {
+            email: values.email + "@uwaterloo.ca",
+            password: values.password,
+        }
+        console.log(login_user);
+
+        axios.post('http://134.122.43.103:3000/api/users/login', login_user).then(res => {
+            console.log(res);
+            if(res.data.success) {
+                console.log("Token: " + res.data.token);
+            }
+        });
     };
     return (
         <section className={loginStyles.wrapper}>

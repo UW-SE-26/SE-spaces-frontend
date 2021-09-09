@@ -14,8 +14,9 @@ const createAccount = () => {
         else {
             const new_user = {
                 name: values.first + " " + values.last,
-                email: values.email,
+                email: values.email + "@uwaterloo.ca",
                 password: values.password,
+                program: "SE",
             }
             console.log(new_user);
 
