@@ -26,12 +26,19 @@ function Explore() {
     sections: [{
       id: -1,
       name: "Loading Sections",
+      capacity: -1,
     }],
   };
 
-  const [section_ids, setSectionIDs] = useState([""])
+  const names_initial = [""];
+  
+  const images_initial = [[""]];
+
+  //const [section_ids, setSectionIDs] = useState([""]);
   const [all_sections, setSections] = useState(all_sections_initial);
-  const [shown_sections, updateSections] = useState(all_sections_initial);
+  const [room_names, setNames] = useState(names_initial);
+  const [room_images, setImages] = useState(images_initial);
+  //const [shown_sections, updateSections] = useState(all_sections_initial);
 
   useEffect(() => {
     console.log("Token: " + window.sessionStorage.token);
@@ -41,15 +48,28 @@ function Explore() {
       }
     }).then(res => {
       console.log("/api/rooms result:", res)
-      let sectionID_list: string[] = []
-      for(let i=0; i<res["data"]["rooms"].length; i++){
-        let partial_section_list: string[] = res["data"]["rooms"][i]["sections"]
-        for(let j=0; j<partial_section_list.length; j++){
-          sectionID_list.push(partial_section_list[j])
+
+      let temp_sections = all_sections_initial;
+      let temp_names = names_initial;
+      let temp_images = images_initial;
+
+      temp_sections.sections.pop();
+      temp_names.pop();
+      temp_images.pop();
+      for(let i = 0; i < res.data.rooms.length; i++) {
+        for(let j = 0; j < res.data.rooms[i].sections.length; j++) {
+          temp_sections.sections.push(res.data.rooms[i].sections[j]);
+          temp_names.push(res.data.rooms[i].name);
+          temp_images.push(res.data.rooms[i].images);
+          console.log(temp_images);
         }
       }
-      console.log("Sections List:", sectionID_list)
-      setSectionIDs(sectionID_list)
+
+      setSections(temp_sections);
+      setNames(temp_names);
+      setImages(temp_images);
+      console.log(room_images);
+
       setBookings(res.data);
       updateBookings(res.data);
     });
@@ -112,11 +132,14 @@ function Explore() {
           />
         </div>
         <div className={exploreStyles.cardContainer}>
-          {section_ids.map((section, index) =>
+          {all_sections.sections.map((section, index) =>
             <div>
               <BookingModal
-                key={section}
-                name={section}
+                key={section.id}
+                name={section.name}
+                room_name={room_names[index]}
+                capacity={section.capacity}
+                images={room_images[index]}
               />
             </div>
           )}

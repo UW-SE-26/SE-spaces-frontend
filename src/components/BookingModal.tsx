@@ -11,6 +11,7 @@ import { FormOutlined, UserAddOutlined } from "@ant-design/icons";
 import HomeOutlined from "@material-ui/icons/HomeOutlined";
 import PersonOutlined from "@material-ui/icons/PersonOutlined";
 import BuisnessOutlined from "@material-ui/icons/BusinessOutlined"
+import axios from "axios";
 
 interface BookedEvent {
   date: string;
@@ -83,6 +84,21 @@ function BookingModal(props: any) {
     console.log(selected_date_in);
     // in the line below, add code to query the API for times booked (unavailable for further booking) for a given section)
     // setUnavailableHours()
+
+    let date_reformat = new Date(selected_date_in).toISOString();
+    let cur_day = {
+      id: props.key,
+      date: date_reformat,
+    }
+
+    axios.get('http://134.122.43.103:3000/api/queryTimes', {
+      
+      headers: {
+        Authorization: `bearer ${window.sessionStorage.token}`
+      }
+    }).then(res => {
+      console.log(res.data);
+    });
   }
 
   function logTime(value_moment_in: MomentInput | null, selected_time_in: string) {
@@ -99,17 +115,20 @@ function BookingModal(props: any) {
   return (
     <div>
       <div className={bookingStyles.mainCard} onClick={showModal}>
-        <img src={MapImage} className={bookingStyles.cardImage}/>
-        {props.name}
+        <img src={props.images[0]} className={bookingStyles.cardImage}/>
+        <h3>{props.name}</h3> 
+        {props.room_name} 
+        <br/>
+        Capacity: {props.capacity}
       </div>
       <Modal
         title={
           <div className={bookingStyles.headerLine}>
             <h2>Booking Space Details</h2>
             <div className={bookingStyles.selectionAttributes}>
-              <HomeOutlined></HomeOutlined> Room 123 &emsp;
-              <BuisnessOutlined></BuisnessOutlined> Section 22 &emsp;
-              <PersonOutlined></PersonOutlined> Capacity 8 &emsp;
+              <HomeOutlined></HomeOutlined> Room {props.room_name} &emsp;
+              <BuisnessOutlined></BuisnessOutlined> Section {props.name} &emsp;
+              <PersonOutlined></PersonOutlined> Capacity {props.capacity} &emsp;
             </div>
           </div>
         }
@@ -148,7 +167,7 @@ function BookingModal(props: any) {
             </div>
           </div>
           <div className={bookingStyles.bookingInfo}>
-            <img src={MapImage} className={bookingStyles.mapSection}/>
+            <img src={props.images[1]} className={bookingStyles.mapSection}/>
           </div>
         </div>
       </Modal>
