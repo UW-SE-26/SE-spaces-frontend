@@ -14,9 +14,9 @@ import BuisnessOutlined from "@material-ui/icons/BusinessOutlined"
 import axios from "axios";
 
 interface BookedEvent {
-  date: string;
-  start: string;
-  guests: string[];
+  sectionId: string;
+  userEmails: string[];
+  startsAt: string;
 }
 
 //temporary, will be replaced by api call to backend
@@ -29,7 +29,7 @@ function BookingModal(props: any) {
 
   const [selected_date, setDate] = useState("");
   const [selected_start, setStart] = useState("");
-  const [unavailable_hours, setUnavailableHours] = useState([])
+  const [unavailable_hours, setUnavailableHours] = useState([0])
   const [selected_guests, setGuests] = useState([""]);
 
   //keys for dropdown list
@@ -47,11 +47,13 @@ function BookingModal(props: any) {
   function handleOk() {
     setConfirmLoading(true);
 
+    let reformat_date = new Date(selected_date + "T" + selected_start);
+
     //to be passed to backend
-    let bookedEvent: BookedEvent = {
-      date: selected_date,
-      start: selected_start,
-      guests: selected_guests,
+    let booked_event: BookedEvent = {
+      sectionId: props.section_id,
+      userEmails: selected_guests,
+      startsAt: reformat_date.toISOString(),
     };
 
     //adds the most recently selected to top of list
@@ -67,8 +69,16 @@ function BookingModal(props: any) {
       }
     }
 
-    console.log(bookedEvent);
+    console.log(booked_event);
 
+    axios.post('http://134.122.43.103:3000/api/bookings/create', booked_event, {
+      headers: {
+        Authorization: `bearer ${window.sessionStorage.token}`
+      }
+    }).then(res => {
+      console.log(res.data);
+    });
+    
     setTimeout(() => {
       setVisible(false);
       setConfirmLoading(false);
@@ -85,25 +95,39 @@ function BookingModal(props: any) {
     // in the line below, add code to query the API for times booked (unavailable for further booking) for a given section)
     // setUnavailableHours()
 
-    let date_reformat = new Date(selected_date_in).toISOString();
     let cur_day = {
-      id: props.key,
-      date: date_reformat,
+      id: props.section_id,
+      date: selected_date_in,
     }
 
-    axios.get('http://134.122.43.103:3000/api/queryTimes', {
-      
+    console.log(cur_day);
+
+    axios.post('http://134.122.43.103:3000/api/sections/queryTimes', cur_day, {
       headers: {
         Authorization: `bearer ${window.sessionStorage.token}`
       }
     }).then(res => {
-      console.log(res.data);
+      console.log("Time Data", res.data);
+
+      let temp_hours = [];
+      for(let i = 0; i < 24; i++) {
+        temp_hours.push(i);
+      }
+
+      for(let i = 0; i < res.data.length; i++) {
+        if(!res.data[i].booked) {
+          temp_hours.splice(temp_hours.indexOf(res.data[i].startsAt), 1);
+        }
+      }
+
+      setUnavailableHours(temp_hours);
+
     });
   }
 
   function logTime(value_moment_in: MomentInput | null, selected_time_in: string) {
     let hour = moment(value_moment_in).format("HH")
-    setStart(hour);
+    setStart(hour + ":00:00");
     console.log("Time Selected: ", hour);
   }
 
@@ -151,16 +175,32 @@ function BookingModal(props: any) {
             <div className={bookingStyles.genericPadding}>
               <h4>Set Booking Time <FormOutlined></FormOutlined></h4>
               <div className={bookingStyles.genericPadding}>
-                <DatePicker className={bookingStyles.dataEntry} size="large" onChange={logDate}/>
+                <DatePicker 
+                  className={bookingStyles.dataEntry} 
+                  size="large" 
+                  onChange={logDate}/>
               </div>
               <div className={bookingStyles.genericPadding}>
-                <TimePicker className={bookingStyles.dataEntry} size="large" use12Hours format="h a" minuteStep={30} onChange={logTime} disabledHours={() => unavailable_hours}/>
+                <TimePicker 
+                  className={bookingStyles.dataEntry} 
+                  size="large" 
+                  use12Hours 
+                  format="h a" 
+                  minuteStep={30} 
+                  onChange={logTime} 
+                  disabledHours={() => unavailable_hours}/>
               </div>
             </div>
             <div className={bookingStyles.genericPadding}>
               <h4>Guests <UserAddOutlined></UserAddOutlined></h4>
               <div className={bookingStyles.genericPadding}>
-                <Select mode="tags" className={bookingStyles.dataEntry} size="large" onChange={logGuest} tokenSeparators={[',']} placeholder="Waterloo Email">
+                <Select 
+                  mode="tags" 
+                  className={bookingStyles.dataEntry} 
+                  size="large" 
+                  onChange={logGuest} 
+                  tokenSeparators={[',']} 
+                  placeholder="Waterloo Email">
                   {guest_keys}
                 </Select>
               </div>

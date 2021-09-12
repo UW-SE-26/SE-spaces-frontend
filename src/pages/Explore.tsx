@@ -24,7 +24,7 @@ function Explore() {
 
   const all_sections_initial = {
     sections: [{
-      id: -1,
+      _id: -1,
       name: "Loading Sections",
       capacity: -1,
     }],
@@ -135,7 +135,7 @@ function Explore() {
           {all_sections.sections.map((section, index) =>
             <div>
               <BookingModal
-                key={section.id}
+                section_id={section._id}
                 name={section.name}
                 room_name={room_names[index]}
                 capacity={section.capacity}

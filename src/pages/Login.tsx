@@ -23,9 +23,7 @@ const login = () => {
                 window.sessionStorage.token = res.data.token;
                 console.log("TokenStored: " + window.sessionStorage.token);
                 let interval = setInterval(()=> {
-                    axios.get('http://134.122.43.103:3000/api/users/refreshToken', {
-                        withCredentials: true,
-                    }).then(res => {
+                    axios.get('http://134.122.43.103:3000/api/users/refreshToken').then(res => {
                         window.sessionStorage.token = res.data.token;
                         console.log(window.sessionStorage.token);
                     });
